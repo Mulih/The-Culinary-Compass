@@ -2,10 +2,17 @@ const express = require('express');
 const mongoose = require('mongoose');
 const axios = require('axios');
 const app = express();
-const port = 8082;
+const port = 3000;
 
 // Middleware
 app.use(express.json());
+app.use(express.static(__dirname));
+
+// Send index.html for the home route
+const path = require('path');
+app.get('/', function (req, res) {
+  res.sendFile(path.join(__dirname, 'index.html'));
+});
 
 // Connect to MongoDB
 mongoose.connect('mongodb://localhost/recipesDB', {
@@ -102,4 +109,3 @@ app.use((err, req, res, next) => {
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
 });
-
