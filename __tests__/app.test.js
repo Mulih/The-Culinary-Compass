@@ -3,6 +3,7 @@ const { getRecipes, displayRecipes } = require('../scripts/app.js');
 
 describe('Tests for App', () => {
   let resultsContainer;
+  let searchForm;
 
 beforeEach(() => {
   resultsContainer = global.document.createElement('div');
@@ -75,4 +76,5 @@ test('form submission triggers getRecipes', () => {
 
   // Check if getRecipes was called
   expect(getRecipesSpy).toHaveBeenCalled();
+})
 });

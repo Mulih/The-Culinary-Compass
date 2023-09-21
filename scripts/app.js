@@ -2,6 +2,7 @@
 const searchForm = document.querySelector('#search-form');
 const searchInput = document.querySelector('#search-input');
 const resultsContainer = document.querySelector('#results');
+const apiKey = '40db974f836a4c99af3584081fbcdc5d';
 
 // Event listener for the search form
 if(searchForm) {
@@ -13,32 +14,28 @@ if(searchForm) {
   getRecipes(query);
 });
 }
-
+document.getElementById('search-form').addEventListener('submit', function(event) {
+  event.preventDefault();
+  var searchQuery
+});
 // Function to fetch recipes from the API
-function getRecipes (query) {
-  const API_URL = `https://www.themealdb.com/api/json/v1/1/search.php?s=${query}`;
-  fetch(API_URL)
+export function getRecipes(query) {
+  fetch(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${apiKey}&query=${query}`)
     .then(response => response.json())
-    .then(data => displayRecipes(data.meals))
+    .then(data => displayRecipes(data.results))
     .catch(error => console.error('Error:', error));
 }
 
-// Function to display recipes in the DOM
-function displayRecipes (recipes) {
-  if (!recipes) {
-    resultsContainer.innerHTML = '<p>No recipes found.</p>';
-    return;
-  }
+export function displayRecipes(recipes) {
+  const resultsContainer = document.querySelector('#results');
   const html = recipes.map(recipe => {
     return `
-            <div class="recipe">
-                <img src="${recipe.strMealThumb}" alt="${recipe.strMeal}">
-                <h2>${recipe.strMeal}</h2>
-                <p>${recipe.strInstructions}</p>
-            </div>
-        `;
+      <div class="recipe">
+        <img src="${recipe.image}" alt="${recipe.title}">
+        <h2>${recipe.title}</h2>
+        <a href="${recipe.sourceUrl}">Go to Recipe</a>
+      </div>
+    `;
   }).join('');
   resultsContainer.innerHTML = html;
 }
-
-module.exports = { getRecipes, displayRecipes };
