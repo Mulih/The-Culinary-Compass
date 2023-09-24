@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RecipeFind</title>
+    <title>Recipe Search Results</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="scripts/styles/styles.css">
+    <link rel="stylesheet" href="styles/styles.css">
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -28,28 +28,30 @@
         </div>
     </nav>
     <main class="container">
-        <section id="intro">
-            <h1>RecipeFind App</h1>
-            <p>Find the best recipes from around the web.</p>
-            <form id="search-form" class="form-inline my-2 my-lg-0" action="results.html">
-                <input id="search-input" class="form-control mr-sm-2" type="search" placeholder="Search for recipes..." aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            </form>
-            <a href="https://peterokeno1.netlify.app/" class="btn btn-primary">Try it now</a>
-        </section>
+        <h1 class="mt-5">Search Results</h1>
         <div id="results" class="mt-5"></div>
     </main>
     <footer class="footer mt-auto py-3 bg-light">
         <div class="container">
-            <div class="part-to-style">
-            <span class="text-muted">Your best dish is a search away</span>
-            </div>
+            <span class="text-muted">Taste the world in your kitchen</span>
         </div>
     </footer>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Include the app.js file as a module -->
+    <script type="module" src="scripts/app.js"></script>
+    <!-- Include the JavaScript code that gets the search query and fetches the recipes -->
     <script type="module">
-        import { getRecipes, displayRecipes } from './scripts/app.js';
+        // Import the getRecipes function from the app.js file
+        import { getRecipes } from './scripts/app.js';
+
+        // Get the search query from the session storage
+        const query = sessionStorage.getItem('query');
+
+        // Fetch and display the recipes
+        if (query) {
+            getRecipes(query);
+        }
     </script>
 </body>
 </html>

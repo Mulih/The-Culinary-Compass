@@ -3,8 +3,7 @@ body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  background-image: url('../../images/image1.png'); 
-  background-size: 100% 100% 100% 50%;
+  background-image: url('../../images/img2.jpg'); 
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -26,9 +25,9 @@ nav a {
 }
 
 #intro {
-  background-image: url('images/cover image.png');
-  background-size: cover;
-  height: 100vh;
+  background-image: url('images/img2.jpg');
+  background-size: auto;
+  height: 75vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -93,4 +92,11 @@ section.h1 {
 }
 section.p {
   color: #f8f9fa;
+}
+.part-to-style {
+  font-family: monospace;
+  font-size: 20px;
+}
+body {
+  background-color: #3e0f26;
 }

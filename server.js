@@ -6,7 +6,7 @@ const port = 3000;
 
 // Middleware
 app.use(express.json());
-app.use(express.static(__dirname));
+app.use(express.static('scripts'));
 
 // Send index.html for the home route
 const path = require('path');

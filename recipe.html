@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="text.css">
+</head>
+<body>
+    
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">RecipeFind</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Features</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">About</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <main class="container">
+        <h1 class="mt-5">Search Results</h1>
+        <div id="results" class="mt-5"></div>
+    </main>
+    <footer class="footer mt-auto py-3 bg-light">
+        <div class="container">
+            <span class="text-muted">Taste the world in your kitchen</span>
+    <div id="recipe-name"></div>
+    <div id="recipe"></div>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const id = urlParams.get('id');
+        const apiKey = '40db974f836a4c99af3584081fbcdc5d';
+
+        // Fetch the recipe details
+        fetch(`https://api.spoonacular.com/recipes/${id}?apiKey=${apiKey}`)
+            .then(response => response.json())
+            .then(data => {
+                const recipeNameContainer = document.querySelector('#recipe-name');
+                // Display the recipe name
+                recipeNameContainer.innerHTML = `<h2>${data.title}</h2>`;
+            })
+            .catch(error => console.error('Error:', error));
+
+        // Fetch the recipe instructions
+        fetch(`https://api.spoonacular.com/recipes/${id}/analyzedInstructions?apiKey=${apiKey}`)
+            .then(response => response.json())
+            .then(data => {
+                const recipeContainer = document.querySelector('#recipe');
+                // Display the recipe instructions
+                recipeContainer.innerHTML = data[0].steps.map(step => `<p>${step.step}</p>`).join('');
+            })
+            .catch(error => console.error('Error:', error));
+    </script>
+</body>
+</html>
